@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sikkim</title>
 	<link rel="shortcut icon" href="icons/sm.png" type="image/x-icon">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<style>
 		body {
 			background-image: url("images/sikkimlake.jpg");
@@ -26,15 +27,48 @@
 			padding: 8px;
 			font-family: sans-serif;
 			text-align: center;
+		}
+		
+		.light-theme {
+			background-color: #f0f0f0;
+			color: #000000;
+			transition: background-color 0.5s, transform 0.5s;
+		}
+		
+		.light-theme th,td {
 			border-bottom: 1px solid #000000;
 		}
 		
+		.dark-theme {
+			background-color: #101010;
+		}
+		
+		.dark-theme .container {
+			background-color: #101010;
+			color: #bdbdbd;
+			transition: background-color 0.5s, transform 0.5s;
+		}
+		
 		.container {
-			background-color: #f0f0f0;
 			max-width: 800px;
 			margin: 25px auto;
 			padding: 20px;
-			border-radius: 5px;
+			border-radius: 10px;
+		}
+		
+		.dark-theme .theme-toggle {
+			color: #000;
+			background-color: #fff;
+		}
+		
+		.theme-toggle {
+			float: right;
+			padding: 10px;
+			border-radius: 50%;
+			border: none;
+			cursor: pointer;
+			background-color: #000;
+			color: #fff;
 		}
 		
 		.align {
@@ -45,16 +79,17 @@
 			font-size: 20px;
 			font-weight: 600;
 		}
-
-		@media (max-width: 600px) {
+		
+		@media (max-width:600px) {
 			table {
 				font-size: 14px;
 			}
-		}
+		} 
 	</style>
 </head>
 <body>
-	<div class="container align">
+	<div class="container light-theme align">
+		<button class="theme-toggle" onclick="toggleTheme()"><i class="material-icons">wb_sunny</i></button>
 		<h1>Trip Dates</h1>
 		<h3>6th - 14th April</h3>
 		<p class="bold">Howrah - New Jalpaiguri Vande Bharat Express</p>
@@ -82,7 +117,7 @@
 			</tr>
 		</table>
 	</div>
-	<div class="container" style="overflow-x:auto;">
+	<div class="container light-theme" style="overflow-x:auto">
 		<center><h1>Accomodation Options</h1>
 		<p class="bold">(All options are for 8 nights)</p></center>
 		<table>
@@ -125,7 +160,7 @@
 			</tr>
 		</table>
 	</div>
-	<div class="container">
+	<div class="container light-theme">
 		<center><h1>Total Cost Per Person</h1>
 		<p class="bold">Considering Travel Option A</p></center>
 		<table>
@@ -151,7 +186,7 @@
 			</tr>
 		</table>
 	</div>
-	<div class="container">
+	<div class="container light-theme">
 		<center><h1>Total Cost Per Person</h1>
 		<p class="bold">Considering Travel Option B</p></center>
 		<table>
@@ -177,5 +212,11 @@
 			</tr>
 		</table>
 	</div>
+	<script>
+	  function toggleTheme() {
+		const body = document.body;
+		body.classList.toggle('dark-theme');
+	  }
+	</script>
 </body>
 </html>

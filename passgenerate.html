@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <link rel="stylesheet" href="main.css">
+	<link rel="shortcut icon" href="icons/pass.png" type="image/x-icon">
+	<style>
+		#password {
+            margin-top: 10px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            width: 95%;
+            padding: 10px;
+            height: 30px;
+            background-color: white;
+            color: black;
+            border: 1px solid #555;
+            border-radius: 5px;
+        }
+		@media (min-width: 731px) {
+		.sidebar {
+			display: none;
+		}
+		}
+		@media (max-width: 730px) {
+		.nav-wrapper {
+			display: none;
+		}
+		.sidebar {
+			  height: 100%;
+			  width: 0;
+			  position: fixed;
+			  z-index: 1;
+			  top: 0;
+			  left: 0;
+			  background-color: #0f0f0f;
+			  overflow-x: hidden;
+			  transition: 0.5s;
+			  padding-top: 60px;
+			  opacity: 0.9;
+			}
+
+			.sidebar a {
+			  padding: 8px 8px 30px 32px;
+			  text-decoration: none;
+			  font-size: 20px;
+			  color: #818181;
+			  display: block;
+			  transition: 0.3s;
+			  opacity: 1;
+			}
+
+			.sidebar a:hover {
+			  color: limegreen;
+			}
+
+			.sidebar .closebtn {
+			  position: absolute;
+			  top: 0;
+			  right: 25px;
+			  font-size: 36px;
+			  margin-left: 50px;
+			}
+
+			.openbtn {
+			  font-size: 20px;
+			  cursor: pointer;
+			  background-color: limegreen;
+			  border-radius: 5px;
+			  width: 50px;
+			  color: white;
+			  padding: 10px;
+			  border: none;
+			  transition: background-color 0.2s ease;
+			}
+
+			/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+			@media screen and (max-height: 450px) {
+			  .sidebar {padding-top: 15px;}
+			  .sidebar a {font-size: 18px;}
+			}
+			}
+	</style>
+</head>
+<body>
+    <header>
+		<div id="mySidebar" class="sidebar">
+		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+		  <a href="index.html">Home</a>
+		  <a href="plans.html">Plans</a>
+		  <a href="passgenerate.html">Password Generator</a>
+		  <a href="qrgenerate.html">QR Code Generator</a>
+		</div>
+        <div class="nav-wrapper">
+            <nav>
+                <div class="nav-container">
+                    <ul class="nav-tabs">
+                        <li class="nav-tab"><a href="index.html">Home</a></li>
+                        <li class="nav-tab"><a href="plans.html">Plans</a></li>
+						<li class="nav-tab"><a href="#">Contacts</a></li>
+                        <li class="nav-tab"><a href="passgenerate.html">Password Generator</a></li>
+                        <li class="nav-tab"><a href="qrgenerate.html">QR Code Generator</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+	<button id="main" class="openbtn" onclick="openNav()">☰</button>
+    <div class="container">
+		<div class="content">
+			<h1>Random Password Generator</h1>
+			<div class="settings">
+				<label for="length">Password Length:
+					<input type="number" id="length" value="12" min="4" max="32">
+				</label>
+				<label for="uppercase">
+					<input type="checkbox" id="uppercase" checked> Uppercase
+				</label>
+				<label for="numbers">
+					<input type="checkbox" id="numbers" checked> Numbers
+				</label>
+				<label for="specialChars">
+					<input type="checkbox" id="specialChars" checked> Special Characters
+				</label>
+			</div>
+			<button id="generate">Generate Password</button>
+			<input type="text" id="password" readonly>
+			<button id="copy">Copy</button>
+			<button id="clear">Clear</button>
+			<button id="home" class="homeBtn">Go Home</button>
+		</div>
+	</div>
+	<script>
+		function openNav() {
+		  document.getElementById("mySidebar").style.width = "250px";
+		  document.getElementById("main").style.marginLeft = "250px";
+		  document.getElementById("main").style.display = "none";
+		}
+
+		function closeNav() {
+		  document.getElementById("mySidebar").style.width = "0";
+		  document.getElementById("main").style.marginLeft= "0";
+		  document.getElementById("main").style.display = "block";
+		}
+		
+		function generate() {
+            const length = document.getElementById('length').value;
+            const useUppercase = document.getElementById('uppercase').checked;
+            const useNumbers = document.getElementById('numbers').checked;
+            const useSpecialChars = document.getElementById('specialChars').checked;
+
+            const password = generatePassword(length, useUppercase, useNumbers, useSpecialChars);
+            document.getElementById('password').value = password;
+        }
+
+        function generatePassword(length, useUppercase, useNumbers, useSpecialChars) {
+            const lowercase = 'abcdefghijklmnopqrstuvwxyz';
+            const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const numbers = '0123456789';
+            const specialChars = '!@#$%^&*()_-+=<>?/[]{}|';
+            let characters = lowercase;
+            if (useUppercase) characters += uppercase;
+            if (useNumbers) characters += numbers;
+            if (useSpecialChars) characters += specialChars;
+
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * characters.length);
+                password += characters[randomIndex];
+            }
+            return password;
+        }
+
+        function copyToClipboard() {
+            const passwordField = document.getElementById('password');
+            passwordField.select();
+            document.execCommand('copy');
+            alert('Password copied to clipboard!');
+        }
+
+        function clearField() {
+            document.getElementById('password').value = '';
+        }
+
+        function goHome() {
+            window.location.href="index.html";
+        }
+
+        document.getElementById('generate').addEventListener('click', generate);
+        document.getElementById('copy').addEventListener('click', copyToClipboard);
+        document.getElementById('clear').addEventListener('click', clearField);
+        document.getElementById('home').addEventListener('click', goHome);
+	</script>
+</body>
+</html>

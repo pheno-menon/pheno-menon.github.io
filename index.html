@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saswath Menon</title>
+    <link rel="stylesheet" href="main.css">
+	<link rel="shortcut icon" href="icons/sm.png" type="image/x-icon">
+	<style>
+		@media (min-width: 701px) {
+			.sidebar,
+			.openbtn {
+				display: none;
+			}
+		}
+		@media (max-width: 700px) {
+			.nav-wrapper {
+				display: none;
+			}
+			
+			.intro {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+				width: 300px;
+				transform: translate(-25%, -50%);
+			}
+			
+			.intro h2 {
+				font-size: 20px;
+			}
+			
+			.sidebar {
+			  height: 100%;
+			  width: 0;
+			  position: fixed;
+			  z-index: 1;
+			  top: 0;
+			  left: 0;
+			  background-color: #0f0f0f;
+			  overflow-x: hidden;
+			  transition: 0.5s;
+			  padding-top: 60px;
+			  opacity: 0.9;
+			}
+
+			.sidebar a {
+			  padding: 8px 8px 30px 32px;
+			  text-decoration: none;
+			  font-size: 20px;
+			  color: #818181;
+			  display: block;
+			  transition: 0.3s;
+			  opacity: 1;
+			}
+
+			.sidebar a:hover {
+			  color: limegreen;
+			}
+
+			.sidebar .closebtn {
+			  position: absolute;
+			  top: 0;
+			  right: 25px;
+			  font-size: 36px;
+			  margin-left: 50px;
+			}
+
+			.openbtn {
+			  font-size: 22px;
+			  cursor: pointer;
+			  background-color: limegreen;
+			  border-radius: 5px;
+			  width: 45px;
+			  color: white;
+			  padding: 10px;
+			  border: none;
+			  transition: background-color 0.2s ease;
+			}
+
+			/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+			@media screen and (max-height: 450px) {
+			  .sidebar {padding-top: 15px;}
+			  .sidebar a {font-size: 18px;}
+			}
+		}
+	</style>
+</head>
+<body>
+    <header>
+		<div id="mySidebar" class="sidebar">
+		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+		  <a href="index.html">Home</a>
+		  <a href="plans.html">Plans</a>
+		  <a href="passgenerate.html">Password Generator</a>
+		  <a href="qrgenerate.html">QR Code Generator</a>
+		</div>
+        <div class="nav-wrapper">
+            <nav>
+                <div class="nav-container">
+                    <ul class="nav-tabs">
+                        <li class="nav-tab"><a href="index.html">Home</a></li>
+                        <li class="nav-tab"><a href="plans.html">Plans</a></li>
+						<li class="nav-tab"><a href="#">Contacts</a></li>
+                        <li class="nav-tab"><a href="passgenerate.html">Password Generator</a></li>
+                        <li class="nav-tab"><a href="qrgenerate.html">QR Code Generator</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+	<button id="main" class="openbtn" onclick="openNav()">☰</button>  
+    <div class="intro">
+        <h2>Greetings, fellow lifeform!</h2>
+    </div>
+	<script>
+		function openNav() {
+		  document.getElementById("mySidebar").style.width = "250px";
+		  document.getElementById("main").style.marginLeft = "250px";
+		  document.getElementById("main").style.display = "none";
+		}
+
+		function closeNav() {
+		  document.getElementById("mySidebar").style.width = "0";
+		  document.getElementById("main").style.marginLeft= "0";
+		  document.getElementById("main").style.display = "block";
+		}
+	</script>
+</body>
+</html>

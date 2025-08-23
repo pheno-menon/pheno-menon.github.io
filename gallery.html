@@ -5,7 +5,12 @@
     <title>Saswath Menon</title>
     <link rel="icon" type="image/icon" href="img/favicon.ico">
   </head>
-  <body class="construct">
+  <style>
+    body {
+      backdrop-filter: blur(6px);
+    }
+  </style>
+  <body>
     <div>
       <nav class="navbar">
         <ul>
@@ -13,11 +18,23 @@
           <li><a href="resume.html">About</a></li>
           <li><a href="gallery.html">Gallery</a></li>
           <li><a href="contact.html">Contacts</a></li>
+          <span class="theme-toggle" id="themeToggle">🌞</span>
         </ul>
       </nav>
     </div>
-    <div class="notice">
-        <img src="img/construct.png">
+    <div class="carousel-container">
+      <div class="carousel" id="carousel">
+        <div class="carousel-slides"><img src="carousel/image1.jpg"></div>
+        <div class="carousel-slides"><img src="carousel/image2.jpg"></div>
+        <div class="carousel-slides"><img src="carousel/image3.jpg"></div>
+        <div class="carousel-slides"><img src="carousel/image4.jpg"></div>
+      </div>
+      <div class="carousel-buttons">
+        <button id="prev">Back</button>
+        <div id="caption"></div>
+        <button id="next">Next</button>
+      </div>
     </div>
+    <script src="script.js"></script>
   </body>
 </html>

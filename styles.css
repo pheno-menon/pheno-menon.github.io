@@ -342,3 +342,91 @@ nav .theme-toggle {
     letter-spacing: 1px;
     padding-top: 5px;
 }
+@media only screen and (min-width: 300px) {
+    .navbar ul li a {
+        padding: 10px;
+    }
+    nav .theme-toggle {
+        margin-top: 5px;
+    }
+    .carousel {
+        height: 30vh;
+    }
+    .carousel-slides {
+        height: 30vh;
+    }
+    .carousel-buttons #caption {
+        font-size: 10px;
+    }
+}
+@media only screen and (min-width: 675px) {
+    .navbar ul li a {
+        padding: 10px;
+    }
+    nav .theme-toggle {
+        margin-top: 5px;
+    }
+    .carousel {
+        height: 40vh;
+    }
+    .carousel-slides {
+        height: 40vh;
+    }
+    .carousel-buttons #caption {
+        font-size: 10px;
+    }
+}
+@media only screen and (min-width: 905px) {
+    .navbar ul li a {
+        padding: 10px;
+    }
+    nav .theme-toggle {
+        margin-top: 5px;
+    }
+    .carousel {
+        height: 50vh;
+    }
+    .carousel-slides {
+        height: 50vh;
+    }
+    .carousel-buttons #caption {
+        font-size: 10px;
+    }
+}
+@media only screen and (min-width: 1150px) {
+    .navbar ul li a {
+        padding: 15px 30px;
+    }
+    nav .theme-toggle {
+        margin-top: 10px;
+    }
+    .carousel {
+        height: 70vh;
+    }
+    .carousel-slides {
+        height: 70vh;
+    }
+    .carousel-buttons #caption {
+        font-size: 15px;
+    }
+}
+@media only screen and (max-height: 500px) {
+    .navbar ul li a {
+        padding: 10px;
+    }
+    nav .theme-toggle {
+        margin-top: 5px;
+    }
+    .carousel-container {
+        width: 400px;
+    }
+    .carousel {
+        height: 50vh;
+    }
+    .carousel-slides {
+        height: 50vh;
+    }
+    .carousel-buttons #caption {
+        font-size: 10px;
+    }
+}

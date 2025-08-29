@@ -13,18 +13,13 @@ toggle.addEventListener("click", () => {
 document.addEventListener('DOMContentLoaded', () => {
   const carousel = document.getElementById('carousel');
   const slides = document.querySelectorAll('.carousel-slides');
-  const caption = document.getElementById('caption');
+  const toggle = document.getElementById('autoplay-toggle');
   let index = 0;
-  const captions = [
-    "Mountains of Sikkim",
-    "Hoogly Boat Ride",
-    "A Particularly Sad Looking Cat",
-    "Duck Ducking About"
-  ];
+  let autoplay = null;
+  toggle.checked = true;
 
   function updateCarousel() {
     carousel.style.transform = `translateX(-${index * 100}%)`;
-    caption.textContent = captions[index];
   }
 
   function nextSlide() {
@@ -47,12 +42,34 @@ document.addEventListener('DOMContentLoaded', () => {
     resetAutoplay();
   });
 
-  let setAutoplay = setInterval(nextSlide, 4000);
-
-  function resetAutoplay() {
-    clearInterval(setAutoplay);
-    setAutoplay = setInterval(nextSlide, 4000);
+  function startAutoplay() {
+    stopAutoplay();
+    autoplay = setInterval(nextSlide, 4000);
   }
 
+  function stopAutoplay() {
+    clearInterval(autoplay);
+    autoplay = null;
+  }
+
+  function resetAutoplay() {
+    if (toggle.checked) {
+      stopAutoplay();
+      startAutoplay();
+    }
+  }
+
+  toggle.addEventListener('change', () => {
+    if (toggle.checked) {
+      startAutoplay();
+    } else {
+      stopAutoplay();
+    }
+  });
+
   updateCarousel();
+
+  if (toggle.checked) {
+    startAutoplay();
+  }
 });

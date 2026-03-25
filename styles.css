@@ -346,7 +346,59 @@ hr {
 /* ============================================================
    Responsive — Mobile First
    ============================================================ */
-@media only screen and (max-width: 599px) {
+@media only screen and (max-width: 449px) {
+    h2 {
+        font-size: 20px;
+    }
+    h3 {
+        font-size: 14px;
+    }
+    p {
+        font-size: 11px;
+    }
+    li, b {
+        font-size: 11px;
+    }
+    ul {
+        padding-left: 10px;
+    }
+    .name {
+        font-size: 30px;
+    }
+    .subtitle {
+        font-size: 12px;
+    }
+    .intro-container {
+        width: 90%;
+        margin-top: 35px;
+    }
+    .left, .right {
+        width: 100%;
+        float: none;
+        font-size: 12px;
+        text-align: center;
+    }
+    .navbar ul li a {
+        padding: 10px 10px;
+        font-size: 11px;
+    }
+    .left-container,
+    .right-container {
+        width: 45%;
+        margin: 8px;
+        padding: 15px;
+    }
+    .small-container {
+        width: calc(100% - 20px);
+    }
+    .carousel-container {
+        width: 92%;
+    }
+    .carousel-slides { height: 30vh; }
+    .carousel { height: 30vh; }
+}
+
+@media only screen and (min-width: 450px) and (max-width: 599px) {
     .intro-container {
         width: 90%;
     }
@@ -377,6 +429,10 @@ hr {
 @media only screen and (min-width: 600px) and (max-width: 899px) {
     .intro-container { width: 88%; }
     .left, .right { width: 100%; float: none; font-size: 13px; text-align: center; }
+    .left-container,
+    .right-container {
+        width: 45%;
+    }
     .carousel-slides { height: 40vh; }
     .carousel { height: 40vh; }
     .navbar ul li a { padding: 12px 14px; font-size: 13px; }
@@ -386,6 +442,10 @@ hr {
     .intro-container { width: 85%; }
     .left { width: 40%; }
     .right { width: 56%; font-size: 13px; text-align: left; }
+    .left-container,
+    .right-container {
+        width: 46%;
+    }
     .carousel-slides { height: 50vh; }
     .carousel { height: 50vh; }
 }

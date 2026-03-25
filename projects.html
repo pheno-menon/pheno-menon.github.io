@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <title>Saswath Menon — Projects</title>
+    <link rel="icon" type="image/icon" href="img/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      body {
+        padding-top: 60px;
+      }
+
+      .projects-header {
+        text-align: center;
+        padding: 40px 20px 20px;
+      }
+
+      .projects-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        width: 90%;
+        max-width: 1000px;
+        margin: 30px auto 60px;
+      }
+
+      /* ── Project Card ── */
+      .project-card {
+        background-color: var(--bg-panel);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        margin-bottom: 16px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        transition: box-shadow 0.25s ease;
+      }
+
+      .project-card:hover {
+        box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+      }
+
+      .project-body {
+        padding: 24px 28px;
+      }
+
+      .project-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      .project-title {
+        font-size: 22px;
+        font-weight: 700;
+        margin: 0 0 6px;
+        letter-spacing: -0.01em;
+      }
+
+      .project-desc {
+        font-size: 15px;
+        line-height: 1.65;
+        color: var(--text-muted);
+        margin: 0 0 14px;
+      }
+
+      .project-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .tag {
+        display: inline-block;
+        font-size: 12px;
+        font-family: 'Georgia', serif;
+        padding: 3px 10px;
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        color: var(--text-muted);
+        letter-spacing: 0.03em;
+        background-color: var(--bg);
+        transition: background-color var(--transition), color var(--transition);
+      }
+
+      .github-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        font-family: 'Georgia', serif;
+        text-decoration: none;
+        color: var(--text);
+        border: 1px solid var(--border);
+        padding: 6px 14px;
+        border-radius: 6px;
+        white-space: nowrap;
+        transition: background-color 0.2s ease, color 0.2s ease;
+        flex-shrink: 0;
+        align-self: flex-start;
+        margin-top: 2px;
+      }
+
+      .github-link:hover {
+        background-color: var(--nav-bg);
+        color: var(--nav-text);
+        opacity: 1;
+      }
+
+      .github-link img {
+        width: 15px;
+        height: 15px;
+        flex-shrink: 0;
+        
+        transition: filter 0.2s ease;
+      }
+ 
+      .github-link:hover img {
+        filter: invert(1);
+      }
+ 
+      body.dark .github-link img {
+        filter: invert(1);
+      }
+ 
+      body.dark .github-link:hover img {
+        filter: invert(0);
+      }
+
+      /* ── Screenshots Dropdown ── */
+      .screenshots-toggle {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 28px;
+        background: transparent;
+        border: none;
+        border-top: 1px solid var(--border);
+        cursor: pointer;
+        font-family: 'Georgia', serif;
+        font-size: 13px;
+        letter-spacing: 0.05em;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        transition: background-color 0.2s ease, color 0.2s ease;
+      }
+
+      .screenshots-toggle:hover {
+        background-color: var(--bg-panel-hover);
+        color: var(--text);
+      }
+
+      .toggle-arrow {
+        display: inline-block;
+        transition: transform 0.3s ease;
+        font-style: normal;
+        font-size: 11px;
+      }
+
+      .screenshots-panel {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.35s ease;
+        border-top: none;
+      }
+
+      .screenshots-panel.open {
+        grid-template-rows: 1fr;
+        border-top: 1px solid var(--border);
+      }
+
+      .screenshots-inner {
+        overflow: hidden;
+      }
+
+      .screenshots-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 12px;
+        padding: 20px 28px;
+      }
+
+      .screenshot-item {
+        border-radius: 6px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        background-color: var(--bg);
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .screenshot-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+      }
+
+      .screenshot-item img {
+        width: 100%;
+        height: 160px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .screenshot-caption {
+        font-size: 12px;
+        color: var(--text-muted);
+        padding: 7px 10px;
+        font-family: 'Georgia', serif;
+        border-top: 1px solid var(--border);
+      }
+
+      /* ── Lightbox ── */
+      .lightbox {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.85);
+        z-index: 999;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+
+      .lightbox.active {
+        display: flex;
+      }
+
+      .lightbox img {
+        max-width: 90vw;
+        max-height: 85vh;
+        border-radius: 8px;
+        object-fit: contain;
+        box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+      }
+
+      .lightbox-close {
+        position: fixed;
+        top: 20px;
+        right: 28px;
+        font-size: 32px;
+        color: #fff;
+        cursor: pointer;
+        background: none;
+        border: none;
+        line-height: 1;
+        opacity: 0.8;
+        transition: opacity 0.2s;
+      }
+
+      .lightbox-close:hover { opacity: 1; }
+
+      /* ── Responsive ── */
+      @media (max-width: 600px) {
+        .project-body { padding: 18px; }
+        .screenshots-toggle { padding: 12px 18px; }
+        .screenshots-grid { padding: 16px 18px; gap: 10px; }
+        .projects-header h1 { font-size: 28px; }
+        .project-title { font-size: 18px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <nav class="navbar">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="resume.html">About</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a id="themeToggle">Dark Mode</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="projects-header">
+      <h1 class="name">Projects</h1>
+      <p class="subtitle">A selection of personal projects hosted on GitHub</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- ── Project 1: Nile ── -->
+      <div class="project-card">
+        <div class="project-body">
+          <div class="project-top">
+            <div>
+              <h2 class="project-title">Nile - Full Stack E-Commerce Application</h2>
+              <p class="project-desc">
+                A dockerized full-stack e-commerce platform with user authentication, product management,
+                a shopping cart and order processing. It also includes a fully automated test suite covering
+                unit and integration cases, as well as the API layers.
+              </p>
+              <div class="project-meta">
+                <span class="tag">Java</span>
+                <span class="tag">Spring Boot</span>
+                <span class="tag">JWT</span>
+                <span class="tag">MySQL</span>
+                <span class="tag">React</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">Tailwind CSS</span>
+                <span class="tag">Docker</span>
+                <span class="tag">JUnit 5</span>
+                <span class="tag">Mockito</span>
+              </div>
+            </div>
+            <a class="github-link" href="https://github.com/pheno-menon/nile" target="_blank">
+              <img src="img/github.svg" alt="GitHub Logo">
+              View on GitHub
+            </a>
+          </div>
+        </div>
+        <button class="screenshots-toggle" onclick="toggleScreenshots(this)">
+          Screenshots
+          <span class="toggle-arrow">▼</span>
+        </button>
+        <div class="screenshots-panel">
+          <div class="screenshots-inner">
+            <div class="screenshots-grid">
+              <div class="screenshot-item" onclick="openLightbox('img/NileUI_LoginPage.png')">
+                <img src="img/NileUI_LoginPage.png" alt="User Login">
+                <div class="screenshot-caption">Login Page</div>
+              </div>
+              <div class="screenshot-item" onclick="openLightbox('img/NileUI_UserDashboard.png')">
+                <img src="img/NileUI_UserDashboard.png" alt="User Homepage">
+                <div class="screenshot-caption">Homepage</div>
+              </div>
+              <div class="screenshot-item" onclick="openLightbox('img/NileUI_ProductsPage.png')">
+                <img src="img/NileUI_ProductsPage.png" alt="Product Listing">
+                <div class="screenshot-caption">Product Listing</div>
+              </div>
+              <div class="screenshot-item" onclick="openLightbox('img/NileUI_CartPage.png')">
+                <img src="img/NileUI_CartPage.png" alt="Shopping Cart">
+                <div class="screenshot-caption">Shopping Cart</div>
+              </div>
+              <div class="screenshot-item" onclick="openLightbox('img/NileUI_OrdersPage.png')">
+                <img src="img/NileUI_OrdersPage.png" alt="Orders">
+                <div class="screenshot-caption">Orders Page</div>
+              </div>
+              <div class="screenshot-item" onclick="openLightbox('img/NileUI_AdminPanel.png')">
+                <img src="img/NileUI_AdminPanel.png" alt="Admin Panel">
+                <div class="screenshot-caption">Admin Panel Page</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Project 2: Nile E2E ── -->
+      <div class="project-card">
+        <div class="project-body">
+          <div class="project-top">
+            <div>
+              <h2 class="project-title">Nile E2E - Automated Test Framework</h2>
+              <p class="project-desc">
+                A standalone automated test framework for the Nile platform. Validates end-to-end
+                workflows over HTTP across security, smoke, and regression suites with cases covering
+                authentication flows, JWT boundary conditions and RBAC enforcement. These tests run in a
+                CI pipeline that provisions a docker environment, waits for the stack to be healthy and 
+                then generates reports.
+              </p>
+              <div class="project-meta">
+                <span class="tag">Java</span>
+                <span class="tag">TestNG</span>
+                <span class="tag">Rest Assured</span>
+                <span class="tag">Maven</span>
+                <span class="tag">GitHub Actions</span>
+                <span class="tag">Docker</span>
+              </div>
+            </div>
+            <a class="github-link" href="https://github.com/pheno-menon/nile-e2e" target="_blank">
+              <img src="img/github.svg" alt="GitHub Logo">
+              View on GitHub
+            </a>
+          </div>
+        </div>
+        <button class="screenshots-toggle" onclick="toggleScreenshots(this)">
+          Screenshots
+          <span class="toggle-arrow">▼</span>
+        </button>
+        <div class="screenshots-panel">
+          <div class="screenshots-inner">
+            <div class="screenshots-grid">
+              <div class="screenshot-item" onclick="openLightbox('img/NileE2E_CI_Run.png')">
+                <img src="img/NileE2E_CI_Run.png" alt="CI Pipeline Run">
+                <div class="screenshot-caption">GitHub Actions Run</div>
+              </div>
+              <div class="screenshot-item" onclick="openLightbox('img/NileE2E_TestReport.png')">
+                <img src="img/NileE2E_TestReport.png" alt="Test Report">
+                <div class="screenshot-caption">JaCoCo Test Report</div>
+              </div>
+              <div class="screenshot-item" onclick="openLightbox('img/NileE2E_File_Structure.png')">
+                <img src="img/NileE2E_File_Structure.png" alt="Suite Structure">
+                <div class="screenshot-caption">Test Suite Structure</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Project 3: Health Tracker ── -->
+      <div class="project-card">
+        <div class="project-body">
+          <div class="project-top">
+            <div>
+              <h2 class="project-title">Health Tracker</h2>
+              <p class="project-desc">
+                A Python/Flask application that stores basic health metrics such as exercise, meditation,
+                and sleep times in a database. This data is visualized using Chart.js.
+              </p>
+              <div class="project-meta">
+                <span class="tag">Python</span>
+                <span class="tag">Flask</span>
+                <span class="tag">SQLAlchemy</span>
+                <span class="tag">Chart.js</span>
+                <span class="tag">Bootstrap CSS</span>
+                <span class="tag">HTML</span>
+              </div>
+            </div>
+            <a class="github-link" href="https://github.com/pheno-menon/health-tracker" target="_blank">
+              <img src="img/github.svg" alt="GitHub Logo">
+              View on GitHub
+            </a>
+          </div>
+        </div>
+        <button class="screenshots-toggle" onclick="toggleScreenshots(this)">
+          Screenshots
+          <span class="toggle-arrow">▼</span>
+        </button>
+        <div class="screenshots-panel">
+          <div class="screenshots-inner">
+            <div class="screenshots-grid">
+              <div class="screenshot-item" onclick="openLightbox('img/HealthTracker_Form.png')">
+                <img src="img/HealthTracker_Form.png" alt="Health Tracker Form">
+                <div class="screenshot-caption">Health Metrics Form</div>
+              </div>
+              <div class="screenshot-item" onclick="openLightbox('img/HealthTracker_Dashboard_Exercise.png')">
+                <img src="img/HealthTracker_Dashboard_Exercise.png" alt="Exercise Graph">
+                <div class="screenshot-caption">Exercise Graph</div>
+              </div>
+              <div class="screenshot-item" onclick="openLightbox('img/HealthTracker_Dashboard_Meditation.png')">
+                <img src="img/HealthTracker_Dashboard_Meditation.png" alt="Meditation Graph">
+                <div class="screenshot-caption">Meditation Graph</div>
+              </div>
+              <div class="screenshot-item" onclick="openLightbox('img/HealthTracker_Dashboard_Sleep.png')">
+                <img src="img/HealthTracker_Dashboard_Sleep.png" alt="Sleep Graph">
+                <div class="screenshot-caption">Sleep Graph</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Project 4: Sudoku Solver ── -->
+      <div class="project-card">
+        <div class="project-body">
+          <div class="project-top">
+            <div>
+              <h2 class="project-title">Sudoku Solver</h2>
+              <p class="project-desc">
+                A web based sudoku solver with backtracking logic, image scanning with OpenCV and 
+                hints generation. This has been built with React and Tailwind CSS
+              </p>
+              <div class="project-meta">
+                <span class="tag">JavaScript</span>
+                <span class="tag">Tailwind CSS</span>
+                <span class="tag">HTML</span>
+                <span class="tag">OpenCV</span>
+              </div>
+            </div>
+            <a class="github-link" href="https://github.com/pheno-menon/sudoku-solver" target="_blank">
+              <img src="img/github.svg" alt="GitHub Logo">
+              View on GitHub
+            </a>
+            <a class="github-link" href="https://pheno-menon.github.io/sudoku-solver/" target="_blank">
+              Live Demo
+            </a>
+          </div>
+        </div>
+        <button class="screenshots-toggle" onclick="toggleScreenshots(this)">
+          Screenshots
+          <span class="toggle-arrow">▼</span>
+        </button>
+        <div class="screenshots-panel">
+          <div class="screenshots-inner">
+            <div class="screenshots-grid">
+              <div class="screenshot-item" onclick="openLightbox('img/SudokuSolver_Homepage.png')">
+                <img src="img/SudokuSolver_Homepage.png" alt="Sudoku Solver Homepage">
+                <div class="screenshot-caption">Homepage</div>
+              </div>
+              <div class="screenshot-item" onclick="openLightbox('img/SudokuSolver_Notes.png')">
+                <img src="img/SudokuSolver_Notes.png" alt="Sudoku Pencil Notes">
+                <div class="screenshot-caption">Unsolved Sudoku With Pencil Notes</div>
+              </div>
+              <div class="screenshot-item" onclick="openLightbox('img/SudokuSolver_Solved.png')">
+                <img src="img/SudokuSolver_Solved.png" alt="Sudoku Solved">
+                <div class="screenshot-caption">Solved Sudoku Puzzle</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /projects-grid -->
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+      <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+      <img id="lightbox-img" src="" alt="Screenshot">
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      function toggleScreenshots(btn) {
+        const card = btn.closest('.project-card');
+        const panel = card.querySelector('.screenshots-panel');
+        const arrow = btn.querySelector('.toggle-arrow');
+        const isOpen = panel.classList.contains('open');
+
+        panel.classList.toggle('open', !isOpen);
+        arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+      }
+
+      function openLightbox(src) {
+        document.getElementById('lightbox-img').src = src;
+        document.getElementById('lightbox').classList.add('active');
+      }
+
+      function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('active');
+        document.getElementById('lightbox-img').src = '';
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeLightbox();
+      });
+    </script>
+  </body>
+</html>

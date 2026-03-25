@@ -1,46 +1,112 @@
-html,
-body {
+/* ============================================================
+   CSS VARIABLES — Light Mode (default)
+   ============================================================ */
+:root {
+    --bg:           #ffffff;
+    --bg-panel:     rgba(0, 0, 0, 0.04);
+    --bg-panel-hover: rgba(0, 0, 0, 0.07);
+    --text:         #111111;
+    --text-muted:   #444444;
+    --nav-bg:       #111111;
+    --nav-text:     #ffffff;
+    --nav-hover-bg: #ffffff;
+    --nav-hover-text: #111111;
+    --border:       rgba(0, 0, 0, 0.12);
+    --accent:       #111111;
+    --shadow:       0 2px 16px rgba(0, 0, 0, 0.08);
+    --radius:       10px;
+    --transition:   0.3s ease;
+}
+
+/* ============================================================
+   Dark Mode — toggled via body.dark
+   ============================================================ */
+body.dark {
+    --bg:           #0f0f0f;
+    --bg-panel:     rgba(255, 255, 255, 0.06);
+    --bg-panel-hover: rgba(255, 255, 255, 0.10);
+    --text:         #f0f0f0;
+    --text-muted:   #aaaaaa;
+    --nav-bg:       #f0f0f0;
+    --nav-text:     #111111;
+    --nav-hover-bg: #111111;
+    --nav-hover-text: #f0f0f0;
+    --border:       rgba(255, 255, 255, 0.12);
+    --accent:       #f0f0f0;
+    --shadow:       0 2px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================================
+   Page-level Transition (light ↔ dark)
+   ============================================================ */
+*, *::before, *::after {
+    box-sizing: border-box;
+    transition:
+        background-color var(--transition),
+        color var(--transition),
+        border-color var(--transition),
+        box-shadow var(--transition);
+}
+
+/* ============================================================
+   Base Reset
+   ============================================================ */
+html, body {
     margin: 0;
     padding: 0;
     height: 100%;
 }
+
 body {
-    font-family: sans-serif;
-    color: #f0f0f0;
-    background-image: url("img/prisms.jpg");
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
-body.dark {
-    background-image: url("img/lines.jpg");
-    background-size: cover;
-    background-position: center center;
-    background-repeat: no-repeat;
-}
-.construct {
-    background-color: #000000;
+    font-family: 'Georgia', serif;
+    background-color: var(--bg);
+    color: var(--text);
     background-image: none;
 }
-.notice {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+
+/* Under-construction page */
+body.construct {
+    background-color: #000000;
 }
+
+/* ============================================================
+   Typography
+   ============================================================ */
+h1, h2, h3, h4 {
+    font-family: 'Georgia', serif;
+    color: var(--text);
+    letter-spacing: -0.01em;
+}
+
 p, li {
-    font-size: 18px;
+    font-size: 17px;
+    line-height: 1.65;
+    color: var(--text);
 }
+
 li {
-    padding: 5px;
+    padding: 4px 0;
 }
-nav .theme-toggle {
-    margin-left: auto;
-    font-size: 20px;
-    margin-top: 10px;
-    cursor: pointer;
+
+a {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
 }
+
+a:hover {
+    opacity: 0.65;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 12px 0;
+}
+
+/* ============================================================
+   Navigation Bar
+   ============================================================ */
 .navbar {
     display: flex;
     justify-content: center;
@@ -48,248 +114,164 @@ nav .theme-toggle {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(1px);
     width: 100%;
-    z-index: 1;
+    background-color: var(--nav-bg);
+    z-index: 100;
+    box-shadow: 0 1px 0 var(--border);
 }
+
 .navbar ul {
     list-style: none;
     display: flex;
     margin: 0;
     padding: 0;
 }
+
 .navbar ul li {
-    margin-left: 0;
+    margin: 0;
     padding: 0;
 }
+
 .navbar ul li a {
     text-decoration: none;
     display: block;
-    padding: 15px 30px;
-    color: #fff;
-    font-size: 15px;
-    transition: background 0.35s;
+    padding: 16px 28px;
+    color: var(--nav-text);
+    font-family: 'Georgia', serif;
+    font-size: 14px;
+    letter-spacing: 0.04em;
     cursor: pointer;
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease;
 }
+
 .navbar ul li a:hover {
-    background-color: #00ffff;
-    color: #0f0f0f;
+    background-color: var(--nav-hover-bg);
+    color: var(--nav-hover-text);
 }
-.banner {
-    padding-top: 20px;
-    text-align: center;
+
+/* ============================================================
+   Panels / Containers
+   ============================================================ */
+.split-container {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
 }
-.name {
-    font-size: 50px;
-    font-weight: 700;
+
+.left-container,
+.right-container {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border);
+    width: 48%;
+    padding: 20px;
+    border-radius: var(--radius);
+    margin: 15px;
+    box-shadow: var(--shadow);
 }
-.subtitle {
-    font-size: 20px;
-    font-weight: 100;
-    line-height: 0;
-    padding-bottom: 5px;
+
+.big-container {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border);
+    width: calc(100% - 20px);
+    padding: 20px;
+    border-radius: var(--radius);
+    margin: 10px;
+    box-shadow: var(--shadow);
 }
+
+.small-container {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border);
+    width: calc(33.33% - 20px);
+    padding: 20px;
+    border-radius: var(--radius);
+    margin: 10px;
+    box-shadow: var(--shadow);
+    flex: 1 1 200px;
+}
+
 .inner-container {
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    border-radius: 10px;
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
     display: flex;
     width: 100%;
     margin: 5px 10px;
     padding: 15px;
-    box-sizing: border-box;
 }
-.split-container {
-    display: flex;
-    width: 100%;
+
+/* ============================================================
+   Resume / About — Banner
+   ============================================================ */
+.banner {
+    padding-top: 80px;
+    text-align: center;
 }
-.left-container,
-.right-container {
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    width: 50%;
-    padding: 15px;
-    box-sizing: border-box;
-    border-radius: 10px;
-    margin: 10px;
+
+.name {
+    font-size: 48px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -0.02em;
 }
-.big-container {
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    width: 70%;
-    padding: 15px;
-    box-sizing: border-box;
-    border-radius: 10px;
-    margin: 10px;
+
+.subtitle {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin: 6px 0 10px;
 }
-.small-container {
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
-    width: 33%;
-    padding: 15px;
-    box-sizing: border-box;
-    border-radius: 10px;
-    margin: 10px;
-}
+
+/* ============================================================
+   Home — Intro Card
+   ============================================================ */
 .intro-container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow);
     width: 80%;
-    padding: 15px;
-    box-sizing: border-box;
-    border-radius: 10px;
-    margin: auto;
+    padding: 20px;
+    border-radius: var(--radius);
 }
+
 .left {
-    border-radius: 10px;
+    border-radius: var(--radius);
     width: 50%;
     float: left;
 }
+
 .right {
     float: right;
     width: 48%;
     padding-top: 10px;
     text-align: center;
 }
+
 .intro-img {
-    border-radius: 10px;
+    border-radius: var(--radius);
     width: 100%;
+    display: block;
 }
-@media only screen and (min-width: 300px) {
-    .intro-container {
-        max-width: 290px;
-    }
-    .left {
-        width: 100%;
-    }
-    .right {
-        width: 100%;
-        font-size: 10px;
-        text-align: center;
-    }
-    .navbar ul li a {
-        padding: 10px 10px;
-    }
-    nav .theme-toggle {
-        margin-top: 5px;
-        padding: 0;
-    }
+
+/* ============================================================
+   Under Construction
+   ============================================================ */
+.notice {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
-@media only screen and (min-width: 400px) {
-    .intro-container {
-        max-width: 300px;
-    }
-    .left {
-        width: 100%;
-    }
-    .right {
-        width: 100%;
-        font-size: 10px;
-        text-align: center;
-    }
-    
-}
-@media only screen and (min-width: 600px) {
-    .intro-container {
-        max-width: 550px;
-    }
-    .left {
-        width: 100%;
-    }
-    .right {
-        width: 100%;
-        font-size: 10px;
-        text-align: center;
-    }
-    
-}
-@media only screen and (min-width: 800px) {
-    .intro-container {
-        max-width: 600px;
-    }
-    .left {
-        width: 100%;
-    }
-    .right {
-        width: 100%;
-        font-size: 10px;
-        text-align: center;
-    }
-}
-@media only screen and (min-width: 1100px) {
-    .intro-container {
-        max-width: 100%;
-    }
-    .left {
-        width: 40%;
-    }
-    .right {
-        padding: 0;
-        margin: 0;
-        width: 58%;
-        font-size: 11px;
-        text-align: left;
-    }
-    .navbar ul li a {
-        padding: 15px 30px;
-    }
-    nav .theme-toggle {
-        margin-top: 10px;
-        padding: 0;
-    }
-}
-@media screen and (min-width: 1215px) {
-    .left {
-        width: 50%;
-    }
-    .right {
-        width: 48%;
-        font-size: 13px;
-        text-align: center;
-    }
-}
-@media screen and (min-width: 1400px) {
-    .intro-container {
-        max-width: 100%;
-    }
-    .left {
-        width: 50%;
-    }
-    .right {
-        width: 48%;
-        font-size: 15px;
-        padding: 10px;
-        text-align: center;
-    }
-    
-}
-@media only screen and (max-height: 700px) {
-    .intro-container {
-        max-width: 100%;
-    }
-    .left {
-        width: 40%;
-    }
-    .right {
-        padding: 0 0;
-        margin: 0;
-        width: 58%;
-        font-size: 9.5px;
-        text-align: left;
-    }
-    .navbar ul li a {
-        padding: 15px 30px;
-    }
-    nav .theme-toggle {
-        margin-top: 10px;
-        padding: 0;
-    }
-}
+
+/* ============================================================
+   Gallery — Carousel
+   ============================================================ */
 .carousel-container {
     position: absolute;
     top: 50%;
@@ -297,124 +279,139 @@ nav .theme-toggle {
     transform: translate(-50%, -50%);
     width: 60%;
     overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    background-color: var(--bg-panel);
 }
+
 .carousel {
     display: flex;
     width: 100%;
     transition: transform 0.5s ease-in-out;
 }
+
 .carousel-slides {
     flex: 0 0 100%;
     min-width: 100%;
     height: 70vh;
 }
+
 .carousel-slides img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
+
 .carousel-buttons {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-top: 1px solid var(--border);
 }
+
 .carousel-buttons button {
-    padding: 8px 16px;
+    padding: 10px 20px;
     border: none;
-    background-color: rgba(255, 255, 255, 0);
-    color: #fff;
+    background-color: transparent;
+    color: var(--text);
+    font-size: 14px;
+    font-family: 'Georgia', serif;
     cursor: pointer;
-    transition: background 0.35s;
+    letter-spacing: 0.04em;
+    transition: background-color 0.25s ease, color 0.25s ease;
 }
-.carousel-buttons button:hover { 
-    background: #00ffff;
-    transition: background 0.35s;
+
+.carousel-buttons button:hover {
+    background-color: var(--nav-bg);
+    color: var(--nav-text);
 }
+
 #autoplay-label {
     flex: 1;
     text-align: center;
-    font-size: 15px;
+    font-size: 14px;
     cursor: pointer;
+    color: var(--text-muted);
+    font-family: 'Georgia', serif;
 }
+
 #autoplay-toggle {
     margin-right: 5px;
     transform: scale(1.2);
     cursor: pointer;
+    accent-color: var(--text);
 }
-@media only screen and (min-width: 300px) {
+
+/* ============================================================
+   Responsive — Mobile First
+   ============================================================ */
+@media only screen and (max-width: 599px) {
+    .intro-container {
+        width: 90%;
+    }
+    .left, .right {
+        width: 100%;
+        float: none;
+        font-size: 13px;
+        text-align: center;
+    }
     .navbar ul li a {
-        padding: 10px;
+        padding: 10px 10px;
+        font-size: 12px;
     }
-    nav .theme-toggle {
-        margin-top: 5px;
+    .left-container,
+    .right-container {
+        width: calc(100% - 20px);
     }
-    .carousel {
-        height: 30vh;
-    }
-    .carousel-slides {
-        height: 30vh;
-    }
-}
-@media only screen and (min-width: 675px) {
-    .navbar ul li a {
-        padding: 10px;
-    }
-    nav .theme-toggle {
-        margin-top: 5px;
-    }
-    .carousel {
-        height: 40vh;
-    }
-    .carousel-slides {
-        height: 40vh;
-    }
-}
-@media only screen and (min-width: 905px) {
-    .navbar ul li a {
-        padding: 10px;
-    }
-    nav .theme-toggle {
-        margin-top: 5px;
-    }
-    .carousel {
-        height: 50vh;
-    }
-    .carousel-slides {
-        height: 50vh;
-    }
-}
-@media only screen and (min-width: 1150px) {
-    .navbar ul li a {
-        padding: 15px 30px;
-    }
-    nav .theme-toggle {
-        margin-top: 10px;
-    }
-    .carousel {
-        height: 70vh;
-    }
-    .carousel-slides {
-        height: 70vh;
-    }
-}
-@media only screen and (max-height: 500px) {
-    .navbar ul li a {
-        padding: 10px;
-    }
-    nav .theme-toggle {
-        margin-top: 5px;
+    .small-container {
+        width: calc(100% - 20px);
     }
     .carousel-container {
-        width: 400px;
+        width: 92%;
     }
-    .carousel {
-        height: 50vh;
-    }
-    .carousel-slides {
-        height: 50vh;
-    }
+    .carousel-slides { height: 30vh; }
+    .carousel { height: 30vh; }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 899px) {
+    .intro-container { width: 88%; }
+    .left, .right { width: 100%; float: none; font-size: 13px; text-align: center; }
+    .carousel-slides { height: 40vh; }
+    .carousel { height: 40vh; }
+    .navbar ul li a { padding: 12px 14px; font-size: 13px; }
+}
+
+@media only screen and (min-width: 900px) and (max-width: 1099px) {
+    .intro-container { width: 85%; }
+    .left { width: 40%; }
+    .right { width: 56%; font-size: 13px; text-align: left; }
+    .carousel-slides { height: 50vh; }
+    .carousel { height: 50vh; }
+}
+
+@media only screen and (min-width: 1100px) {
+    .intro-container { width: 80%; }
+    .left { width: 40%; }
+    .right { width: 58%; font-size: 15px; text-align: left; padding: 0; margin: 0; }
+    .navbar ul li a { padding: 16px 28px; }
+    .carousel-slides { height: 70vh; }
+    .carousel { height: 70vh; }
+}
+
+@media only screen and (min-width: 1400px) {
+    .left { width: 50%; }
+    .right { width: 48%; font-size: 15px; text-align: center; padding: 10px; }
+}
+
+@media only screen and (max-height: 500px) {
+    .carousel-container { width: 400px; }
+    .carousel-slides { height: 50vh; }
+    .carousel { height: 50vh; }
+    .navbar ul li a { padding: 10px 12px; }
+}
+
+@media only screen and (max-height: 700px) {
+    .left { width: 40%; }
+    .right { width: 58%; font-size: 9.5px; text-align: left; margin: 0; padding: 0; }
 }

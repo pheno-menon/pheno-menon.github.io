@@ -429,9 +429,14 @@ hr {
 @media only screen and (min-width: 600px) and (max-width: 899px) {
     .intro-container { width: 88%; }
     .left, .right { width: 100%; float: none; font-size: 13px; text-align: center; }
-    .left-container,
-    .right-container {
+    .split-container {
+        display: flex;
+    }
+    .left-container {
         width: 45%;
+    }
+    .right-container {
+        margin-left: auto;
     }
     .carousel-slides { height: 40vh; }
     .carousel { height: 40vh; }
@@ -442,9 +447,14 @@ hr {
     .intro-container { width: 85%; }
     .left { width: 40%; }
     .right { width: 56%; font-size: 13px; text-align: left; }
-    .left-container,
+    .split-container {
+        display: flex;
+    }
+    .left-container {
+        width: 45%;
+    }
     .right-container {
-        width: 46%;
+        margin-left: auto;
     }
     .carousel-slides { height: 50vh; }
     .carousel { height: 50vh; }
@@ -454,6 +464,15 @@ hr {
     .intro-container { width: 80%; }
     .left { width: 40%; }
     .right { width: 58%; font-size: 15px; text-align: left; padding: 0; margin: 0; }
+    .split-container {
+        display: flex;
+    }
+    .left-container {
+        width: 47%;
+    }
+    .right-container {
+        margin-left: auto;
+    }
     .navbar ul li a { padding: 16px 28px; }
     .carousel-slides { height: 70vh; }
     .carousel { height: 70vh; }
